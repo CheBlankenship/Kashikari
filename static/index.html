@@ -3,24 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>Kashikari(home)</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="/angular.js" charset="utf-8"></script>
     <script src="/angular-ui-router.js" charset="utf-8"></script>
     <script src="/kashikari.js"></script>
   </head>
+
   <body ng-app="kashikari">
-    <button ng-click="home">Home</button>
-    <button ng-click="packages">Packages</button>
-    <button ng-click="login">Login</button>
-    <button ng-click="signup">Sign up</button>
+
+    <button>Home</button>
+    <button>Packages</button>
+    <button>Login</button>
+    <button>Sign up</button>
     <br>
     <br>
-    <ul>
-      <li ng-repeat="package in products">
-        <h2>{{package.name}}</h2>
-      </li>
-    </ul>
     <ui-view></ui-view>
   </body>
 </html>

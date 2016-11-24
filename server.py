@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, request
-import pg
-import bcrypt
-import uuid
+
+from signal import signal, SIGPIPE, SIG_DFL
+signal(SIGPIPE,SIG_DFL)
+
+import pg, bcrypt, uuid
+
 
 
 db = pg.DB(dbname ='e-commerce')
@@ -17,7 +20,7 @@ def home():
 # List all the products
 @app.route('/api/products', methods=['GET'])
 def listAllProducts():
-    all_products = db.query("select * from product").namedresult()
+    all_products = db.query("select * from product").dictresult()
     return jsonify(all_products)
 
 

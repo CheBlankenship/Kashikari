@@ -1,16 +1,21 @@
 var app = angular.module('kashikari', ['ui.router']);
 
 
-app.factory('Kashikari', function($http){
+app.factory('$productSearch', function($http){
   var service = {};
 
-  service.nowPlaying = function() {
+  service.productListCall = function() {
     var url = 'http://localhost:5000/api/products';
     return $http({
       method: 'GET',
       url: url
     });
   };
+
+  // service.productListCall = function() {
+  //   var url = 'http://localhost:5000/api/products/' + query;
+  //
+  // }
 
   return service;
 });
@@ -20,11 +25,10 @@ app.factory('Kashikari', function($http){
 
 
 
-app.controller('showPackagesController', function($scope, $productSearch, $stateParams, $state) {
+app.controller('ProductListController', function($scope, $productSearch, $stateParams, $state) {
 
-  $productSearch.nowPLaying().success(function() {
+  $productSearch.productListCall().success(function(products) {
     $scope.products = products;
-    console.log(products);
   });
 
 
@@ -45,7 +49,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     name: 'home',
     url: '/',
     templateUrl: 'home.html',
-    controller: 'showPackagesController'
+    controller: 'ProductListController'
   });
+
+
+
   $urlRouterProvider.otherwise('/');
 });
