@@ -27,7 +27,7 @@ def listAllProducts():
 # Show product based on ID
 @app.route('/api/product/<product_id>', methods=['GET'])
 def individualProduct(product_id):
-    specifice_product= db.query("select * from product inner join sub_product on product_id = $1", product_id).dictresult()
+    specifice_product= db.query("select * from sub_product inner join product on sub_product.product_id = product.id where product.id = $1", product_id).dictresult()
     return jsonify(specifice_product)
 
 
