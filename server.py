@@ -27,7 +27,7 @@ def listAllProducts():
 # Show product based on ID
 @app.route('/api/product/<product_id>', methods=['GET'])
 def individualProduct(product_id):
-    specifice_product= db.query("select * from product where id = $1", product_id).namedresult()
+    specifice_product= db.query("select * from product inner join sub_product on product_id = $1", product_id).dictresult()
     return jsonify(specifice_product)
 
 
@@ -61,7 +61,7 @@ def user_login():
 
     if rehash == encrypted_password:
         token = uuid.uuid4()
-        user = db.query("select id, first_name from customer where username = $1", username).namedresult()[0]
+        user = db.query("select id, first_name from customer where username = $1", username).dictresult()[0]
         db.insert(
             "auth_token",
             token = token,
@@ -85,7 +85,7 @@ def add_product_to_cart():
     auth_token = data.get('token')
     # print 'AUTH TOKEN %s', auth_token
     product_id = data.get('product_id')
-    customer = db.query("select * from auth_token where token = $1", auth_token).namedresult()[0]
+    customer = db.query("select * from auth_token where token = $1", auth_token).dictresult()[0]
     if customer == []:
         return "FAIL"
         # return "Forbidden", 403
@@ -107,11 +107,11 @@ def view_cart():
 
     # save for later when merging front end has started
     # sent_token = request.args.get('token')
-    customer = db.query("select * from auth_token where token = $1", token).namedresult()
+    customer = db.query("select * from auth_token where token = $1", token).dictresult()
     if customer == []:
         return "Failed", 403
     else:
-        inTheCart = db.query("select product.name, product.price from product_in_shopping_cart inner join product on product.id = product_in_shopping_cart.product_id inner join auth_token on product_in_shopping_cart.customer_id = auth_token.customer_id where auth_token.token = $1", token).namedresult()
+        inTheCart = db.query("select product.name, product.price from product_in_shopping_cart inner join product on product.id = product_in_shopping_cart.product_id inner join auth_token on product_in_shopping_cart.customer_id = auth_token.customer_id where auth_token.token = $1", token).dictresult()
         return jsonify(inTheCart)
 
 
@@ -119,7 +119,7 @@ def view_cart():
 def checkout():
     data = request.get_json()
     token = data.get('token')
-    customer = db.query("select * from auth_token where token = $1", token).namedresult()
+    customer = db.query("select * from auth_token where token = $1", token).dictresult()
     if customer == []:
         return 'No thing info'
     else:
