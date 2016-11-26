@@ -58,6 +58,8 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
       API.signup(formData)
       .success(function() {
         $state.go('login');
+      }).error(function() {
+        console.log("signup faild.");
       });
     }
   };
