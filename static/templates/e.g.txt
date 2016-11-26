@@ -1,0 +1,30 @@
+<!-- <form class="signup" ng-submit="signupSubmit()" method="post">
+  <label>Username</label>
+  <br>
+  <input type="text" ng-model="username" placeholder="username" required>
+  <br>
+  <label>email</label>
+  <br>
+  <input type="text" ng-model="email" placeholder="email" required>
+  <br>
+  <label>Password</label>
+  <br>
+  <input type="text" ng-model="password" placeholder="password" required>
+  <br>
+  <label>Confirm password</label>
+  <br>
+  <input type="text" ng-model="confirmPassword" placeholder="confirmPassword" required>
+  <br>
+  <label>First Name</label>
+  <br>
+  <input type="text" ng-model="firstName" placeholder="first name" required>
+  <br>
+  <label>Last name</label>
+  <br>
+  <input type="text" ng-model="lastName" placeholder="last name" required>
+  <br>
+  <button type="submit">Submit</button>
+</form>
+<div ng-show="formError">
+  {{errorMessage}}
+</div> -->

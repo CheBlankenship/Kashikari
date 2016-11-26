@@ -93,3 +93,35 @@ form.signup.ng-pristine.ng-valid.ng-scope{
   font-family: serif;
   font-size: 40px;
 }
+
+.fukumu{
+  background-image: url('/img-file/DJ-Khaled.png');
+  background-size: 2000px, 2000px;
+  background-repeat: none;
+}
+
+
+div.col-xs-12{
+  font-size: 50px;
+  font-family: impact;
+  height: 500px;
+  text-align: center;
+  margin-top: 30px;
+  color: black;
+}
+
+
+/*form.wrapper.ng-pristine.ng-scope.ng-invalid.ng-invalid-required{
+  background-color: red;
+}*/
+
+label.col-xs-2.col-form-label{
+  font-size: 30px;
+}
+
+
+.form-control{
+  background-color: lightgray;
+  margin: 20px;
+  font-size: 25px;
+}

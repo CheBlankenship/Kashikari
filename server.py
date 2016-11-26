@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 
-from signal import signal, SIGPIPE, SIG_DFL
-signal(SIGPIPE,SIG_DFL)
+# from signal import signal, SIGPIPE, SIG_DFL
+# signal(SIGPIPE,SIG_DFL)
 
 import pg, bcrypt, uuid
 
@@ -35,6 +35,7 @@ def individualProduct(product_id):
 @app.route('/api/user/signup', methods=['POST'])
 def user_signup():
     data = request.get_json()
+    print data
     password = data['password']
     salt = bcrypt.gensalt()
     encrypted_password = bcrypt.hashpw(password.encode('utf-8'), salt)
