@@ -1,4 +1,4 @@
-var app = angular.module('kashikari', ['ui.router']);
+var app = angular.module('kashikari', ['ui.router', 'ngCookies']);
 
 
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -20,6 +20,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/signup',
       templateUrl: 'templates/signup.html',
       controller: 'SignupController'
+    })
+    .state({
+      name: 'login',
+      url: '/login',
+      templateUrl: 'templates/login.html',
+      controller: 'loginController'
     });
   $urlRouterProvider.otherwise('/');
 });
@@ -65,6 +71,10 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
   };
 });
 
+app.controller('loginController', function($scope, API, $stateParams, $state) {
+
+});
+
 
 app.factory('API', function($http){
   var service = {};
@@ -83,6 +93,14 @@ app.factory('API', function($http){
       method: 'POST',
       url: url,
       data: formData
+    });
+  };
+
+  service.login = function(formData) {
+    var url = 'api/user/login';
+    return $http({
+      url : url,
+      data : formData
     });
   };
 

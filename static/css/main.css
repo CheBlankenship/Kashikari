@@ -110,6 +110,10 @@ div.col-xs-12{
   color: black;
 }
 
+div.catch{
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+}
 
 /*form.wrapper.ng-pristine.ng-scope.ng-invalid.ng-invalid-required{
   background-color: red;
