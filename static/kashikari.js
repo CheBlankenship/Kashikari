@@ -73,17 +73,18 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
   };
 });
 
-// app.controller('LoginController', function($scope, API, $state) {
-//   $scope.loginSubmit = function() {
-//     console.log("im here!!!");
-//     if(!$scope.password){
-//       console.log("failed nononononono");
-//     }
-//     else{
-//       $state.go('home');
-//     }
-//   };
-// });
+app.controller('LoginController', function($scope, API, $state) {
+  $scope.loginSubmit = function() {
+    console.log("im here!!!");
+    API.login($scope.username, $scope.password).success(function(data) {
+      console.log('login success!!', data);
+      $state.go('home');
+    }).error(function() {
+      console.log('failed.', data);
+      $state.go('home');
+    });
+  };
+});
 
 
 app.factory('API', function($http, $state){
@@ -113,19 +114,20 @@ app.factory('API', function($http, $state){
 
 // hennkou kakuninn
 
-  // service.login = function(usernsme, password, $cookies) {
-  //   var loginData = $cookies.getObject('loginData');
-  //   var url = 'api/user/login';
-  //   return $http.post({
-  //     url : url,
-  //     username: username,
-  //     password: password
-  //   }).success(function(data) {
-  //     service.authToken = data.auth_token;
-  //     $scope.user = data.user;
-  //     $cookies.putObject('');
-  //   });
-  // };
+  service.login = function(usernsme, password) {
+    // var loginData = $cookies.getObject('loginData');
+    var url = 'api/user/login';
+    return $http.post({
+      url : url,
+      username: username,
+      password: password
+    }).success(function(data) {
+      service.authToken = data.auth_token;
+      $scope.user = data.user;
+      // $cookies.putObject('Login success(service)', data);
+      console.log('Login success(service)', data);
+    });
+  };
 
   return service;
 });
