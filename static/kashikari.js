@@ -1,4 +1,4 @@
-var app = angular.module('kashikari', ['ui.router', 'ngCookies']);
+var app = angular.module('kashikari', ['ui.router']);
 
 
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -20,37 +20,50 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/signup',
       templateUrl: 'templates/signup.html',
       controller: 'SignupController'
-    })
-    .state({
-      name: 'login',
-      url: '/login',
-      templateUrl: 'templates/login.html',
-      controller: 'loginController'
     });
+    // .state({
+    //   name: 'login',
+    //   url: '/login',
+    //   templateUrl: 'templates/login.html',
+    //   controller: 'loginController'
+    // });
   $urlRouterProvider.otherwise('/');
 });
 
 app.controller('HomeController', function($scope, API) {
   API.getProducts()
-    .success(function(products) {
-      $scope.products = products;
-      console.log(products);
+    .then(function(products) {
+      $scope.products = products.data;
+    }, function(){
+      console.log('error');
     });
 });
 
 app.controller('ProductController', function($scope, API, $stateParams, $state) {
-  API.getProduct($stateParams.id)
-    .success(function(product){
-      $scope.product = product;
-      console.log($scope.product);
-    });
+  // var successFn = function(product) {
+  //   $scope.product = product;
+  //   $scope.product_img = product.path_img;
+  // };
+  API.getProduct()
+    .then(function(productDetails){
+      $scope.productDetails = productDetails;
+      console.log("success");
+      // $scope.product_img = product.path_img;
+    }, function(){
+      console.log("error");
+});
+  // API.getProduct($stateParams.id)
+  //   .success(function(product){
+  //     $scope.product = product;
+  //     console.log($scope.product);
+  //   });
 });
 
 app.controller('SignupController', function($scope, API, $stateParams, $state) {
   $scope.signupSubmit = function() {
     if($scope.password != $scope.confirmPassword){
       $scope.formError = true;
-      $scope.errorMessage = "Password doesn't mach";
+      $scope.errorMessage = "Password doesn't match";
     }
     else{
       $scope.formError = false;
@@ -71,24 +84,29 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
   };
 });
 
-app.controller('loginController', function($scope, API, $stateParams, $state) {
-  $scope.loginSubmit = function() {
-    console.log("im here!!!");
-    if(!$scope.password){
-      console.log("failed nononononono");
-    }
-    else{
-      $state.go('home');
-    }
-  };
-});
+// app.controller('loginController', function($scope, API, $state) {
+//   $scope.loginSubmit = function() {
+//     console.log("im here!!!");
+//     if(!$scope.password){
+//       console.log("failed nononononono");
+//     }
+//     else{
+//       $state.go('home');
+//     }
+//   };
+// });
 
 
-app.factory('API', function($http){
+app.factory('API', function($http, $state){
   var service = {};
 
   service.getProducts = function() {
-    return $http.get('/api/products');
+    // return $http.get('/api/products');
+    var url = '/api/products';
+    return $http({
+      method: 'GET',
+      url: url
+    });
   };
 
   service.getProduct = function(id) {
@@ -104,13 +122,21 @@ app.factory('API', function($http){
     });
   };
 
-  service.login = function(formData) {
-    var url = 'api/user/login';
-    return $http({
-      url : url,
-      data : formData
-    });
-  };
+// hennkou kakuninn
+
+  // service.login = function(usernsme, password, $cookies) {
+  //   var loginData = $cookies.getObject('loginData');
+  //   var url = 'api/user/login';
+  //   return $http.post({
+  //     url : url,
+  //     username: username,
+  //     password: password
+  //   }).success(function(data) {
+  //     service.authToken = data.auth_token;
+  //     $scope.user = data.user;
+  //     $cookies.putObject('');
+  //   });
+  // };
 
   return service;
 });

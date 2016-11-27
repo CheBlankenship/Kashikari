@@ -1,17 +1,11 @@
-/*body{
-  background-image: url("img-file/night.jpg");
-  font-size: 70px;
-};*/
-
-body.ng-scope{
-  /*background-image: url("img-file/night.jpg");*/
+/*body.ng-scope{
   background-color: black;
   background-repeat: no-repeat;
   background-size: auto;
 }
 
 a{
-  color: white;
+  color: black;
 }
 
 p{
@@ -115,9 +109,6 @@ div.catch{
   background-color: rgba(0,0,0,0.5);
 }
 
-/*form.wrapper.ng-pristine.ng-scope.ng-invalid.ng-invalid-required{
-  background-color: red;
-}*/
 
 label.col-xs-2.col-form-label{
   font-size: 30px;
@@ -129,3 +120,16 @@ label.col-xs-2.col-form-label{
   margin: 20px;
   font-size: 25px;
 }
+
+li.top{
+  color: black;
+}
+
+nav.col-xs-12.package{
+  background-color: yellow;
+}
+
+
+.wrapper{
+  height: 200px;
+}*/

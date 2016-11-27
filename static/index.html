@@ -11,36 +11,37 @@
 
   </head>
   <body ng-app="kashikari">
+    <!-- menu bar -->
+    <div class="row headmenu">
+      <nav class="col-xs-12 package">
+        <ul>
+          <a ui-sref="home"><li class="top">Home</li></a>
+          <li class="top"><a ui-sref="signup" ng-hide="user">Signup</a></li>
+          <li class="top"><a ui-sref="login" ng-hide="user">Login</a></li>
+          <li class="top"><a ui-sref="logout" ng-show="user">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
 
 
-      <div class="row headmenu">
-        <nav class="col-xs-12 package">
-          <ul>
-            <a ui-sref="home"><li class="top">Home</li></a>
-            <li class="top"><a ui-sref="signup" ng-hide="user">Signup</a></li>
-            <li class="top"><a ui-sref="login" ng-hide="user">Login</a></li>
-            <li class="top"><a ui-sref="logout" ng-show="user">Logout</a></li>
-          </ul>
-        </nav>
-        <div class="cool">
-          <div class="fukumu">
-            <div class="row swag">
-              <div class="col-xs-12 ">
-                <h2 class="title">Kashikari</h2>
-              </div>
-            </div>
-              <div class="row swag">
-                <div class="col-xs-12">
-                  <div class="catch">
-                    "When you have a CATCH FRASE the world is CATCHED BY YOUR FRASE."
-                  </div>
-                </div>
-              </div>
-          </div>
+    <!-- topuga -->
+    <div class="fukumu">
+      <div class="row swag">
+        <div class="col-xs-12 ">
+          <h2 class="title">Kashikari</h2>
         </div>
       </div>
-        <br>
-        <br>
-        <ui-view></ui-view>
+        <div class="row swag">
+          <div class="col-xs-12">
+            "When you have a CATCH FRASE the world is CATCHED BY YOUR FRASE."
+          </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- templates -->
+    <ui-view></ui-view>
   </body>
 </html>

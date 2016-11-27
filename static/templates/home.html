@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<div class="wrapper">
-  <ul ng-repeat="product in products">
-        <li>
-          <a ui-sref="product({id: product.id})">
-            <p>{{product.name}}</p>
-            <img ng-src="/img-file/{{product.image_path}}" width="400" height="400">
-          </a>
-        </li>
-  </ul>
-</div>
+<h1>check</h1>
+<ul>
+  <li ng-repeat="product in products">
+    <a ui-sref="product({id: product.id})">
+      <p>{{product.name}}</p>
+      <img ng-src="/img-file/{{product.image_path}}" width="400" height="400">
+    </a>
+  </li>
+</ul>

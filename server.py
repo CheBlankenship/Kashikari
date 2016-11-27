@@ -1,9 +1,9 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect
 
 # from signal import signal, SIGPIPE, SIG_DFL
 # signal(SIGPIPE,SIG_DFL)
 
-import pg, bcrypt, uuid
+import pg, bcrypt, uuid, os
 
 
 
@@ -18,9 +18,9 @@ def home():
     return app.send_static_file('index.html')
 
 # List all the products
-@app.route('/api/products', methods=['GET'])
+@app.route('/api/products')
 def listAllProducts():
-    all_products = db.query("select * from product").dictresult()
+    all_products = db.query("select * from product order by product.id").dictresult()
     return jsonify(all_products)
 
 
