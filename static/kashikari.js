@@ -72,7 +72,15 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
 });
 
 app.controller('loginController', function($scope, API, $stateParams, $state) {
-
+  $scope.loginSubmit = function() {
+    console.log("im here!!!");
+    if(!$scope.password){
+      console.log("failed nononononono");
+    }
+    else{
+      $state.go('home');
+    }
+  };
 });
 
 

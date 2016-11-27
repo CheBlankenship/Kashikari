@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<form class="wrapper" ng-submit="signupSubmit()" method="post">
+<form class="wrapper" ng-submit="loginSubmit()" method="post">
 
     <label class="col-xs-2 col-form-label">User name</label>
     <div class="col-xs-10">
@@ -18,6 +18,6 @@
       </div>
   </form>
 
-<div ng-show="formError">
-  {{errorMessage}}
+<div ng-show="wronglogin">
+  {{failedLogin}}
 </div>
