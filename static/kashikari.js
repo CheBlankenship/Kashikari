@@ -76,11 +76,11 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
 app.controller('LoginController', function($scope, API, $state) {
   $scope.loginSubmit = function() {
     console.log("im here!!!");
-    API.login($scope.username, $scope.password).success(function(data) {
-      console.log('login success!!', data);
+    API.login($scope.username, $scope.password).success(function(login_data) {
+      console.log('login success!!', login_data);
       $state.go('home');
     }).error(function() {
-      console.log('failed.', data);
+      console.log('failed.', login_data);
       $state.go('home');
     });
   };
@@ -117,8 +117,9 @@ app.factory('API', function($http, $state){
   service.login = function(usernsme, password) {
     // var loginData = $cookies.getObject('loginData');
     var url = 'api/user/login';
-    return $http.post({
+    return $http({
       url : url,
+      method: 'POST',
       username: username,
       password: password
     }).success(function(data) {
