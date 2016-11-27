@@ -44,6 +44,7 @@ app.controller('ProductController', function($scope, API, $stateParams, $state) 
     .success(function(product){
       $scope.product = product;
       console.log($scope.product);
+      console.log("check if im in the product zone");
     });
 });
 
