@@ -76,12 +76,13 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
 app.controller('LoginController', function($scope, API, $state) {
   $scope.loginSubmit = function() {
     console.log("im here!!!");
-    API.login($scope.username, $scope.password).success(function(login_data) {
-      console.log('login success!!', login_data);
-      $state.go('home');
-    }).error(function() {
-      console.log('failed.', login_data);
-      $state.go('home');
+    API.login($scope.username, $scope.password)
+      .success(function(login_data) {
+        console.log('login success!!', login_data);
+        $state.go('home');
+      }).error(function() {
+        console.log('failed.', login_data);
+        $state.go('home');
     });
   };
 });
