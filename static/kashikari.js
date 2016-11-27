@@ -20,13 +20,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/signup',
       templateUrl: 'templates/signup.html',
       controller: 'SignupController'
+    })
+    .state({
+      name: 'login',
+      url: '/login',
+      templateUrl: 'templates/login.html',
+      controller: 'LoginController'
     });
-    // .state({
-    //   name: 'login',
-    //   url: '/login',
-    //   templateUrl: 'templates/login.html',
-    //   controller: 'loginController'
-    // });
   $urlRouterProvider.otherwise('/');
 });
 
@@ -73,7 +73,7 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
   };
 });
 
-// app.controller('loginController', function($scope, API, $state) {
+// app.controller('LoginController', function($scope, API, $state) {
 //   $scope.loginSubmit = function() {
 //     console.log("im here!!!");
 //     if(!$scope.password){
