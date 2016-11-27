@@ -33,6 +33,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.controller('HomeController', function($scope, API) {
   API.getProducts().success(function(products) {
     $scope.products = products;
+    console.log("check if the update is catching up");
     console.log(products);
     console.log("check if im in here");
   });
