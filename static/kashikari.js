@@ -31,32 +31,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 app.controller('HomeController', function($scope, API) {
-  API.getProducts()
-    .then(function(products) {
-      $scope.products = products.data;
-    }, function(){
-      console.log('error');
-    });
+  API.getProducts().success(function(products) {
+    $scope.products = products;
+    console.log(products);
+    console.log("check if im in here");
+  });
 });
 
 app.controller('ProductController', function($scope, API, $stateParams, $state) {
-  // var successFn = function(product) {
-  //   $scope.product = product;
-  //   $scope.product_img = product.path_img;
-  // };
-  API.getProduct()
-    .then(function(productDetails){
-      $scope.productDetails = productDetails;
-      console.log("success");
-      // $scope.product_img = product.path_img;
-    }, function(){
-      console.log("error");
-});
-  // API.getProduct($stateParams.id)
-  //   .success(function(product){
-  //     $scope.product = product;
-  //     console.log($scope.product);
-  //   });
+  API.getProduct($stateParams.id)
+    .success(function(product){
+      $scope.product = product;
+      console.log($scope.product);
+    });
 });
 
 app.controller('SignupController', function($scope, API, $stateParams, $state) {
