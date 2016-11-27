@@ -79,7 +79,7 @@ app.controller('LoginController', function($scope, API, $state) {
       username : $scope.username,
       password : $scope.password
     };
-    API.loginSubmit(login_data).success(function(user_data) {
+    API.login(login_data).success(function(user_data) {
       $state.go('home');
       console.log("Finally success!!", user_data);
     }).error(function() {
