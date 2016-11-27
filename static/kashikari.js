@@ -75,16 +75,30 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
 
 app.controller('LoginController', function($scope, API, $state) {
   $scope.loginSubmit = function() {
-    console.log("im here!!!");
-    API.login($scope.username, $scope.password)
-      .success(function(login_data) {
-        console.log('login success!!', login_data);
-        $state.go('home');
-      }).error(function() {
-        console.log('failed.', login_data);
-        $state.go('home');
+    var login_data = {
+      username : $scope.username,
+      password : $scope.password
+    };
+    API.loginSubmit(login_data).success(function(user_data) {
+      $state.go('home');
+      console.log("Finally success!!", user_data);
+    }).error(function() {
+      console.log("couldn't login...");
     });
   };
+
+
+  // $scope.loginSubmit = function() {
+  //   console.log("im here!!!");
+  //   API.login($scope.username, $scope.password)
+  //     .success(function(login_data) {
+  //       console.log('login success!!', login_data);
+  //       $state.go('home');
+  //     }).error(function() {
+  //       console.log('failed.', login_data);
+  //       $state.go('home');
+  //   });
+  // };
 });
 
 
