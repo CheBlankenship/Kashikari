@@ -35,7 +35,7 @@ app.controller('HomeController', function($scope, API) {
     $scope.products = products;
     console.log("check if the update is catching up");
     console.log(products);
-    console.log("check if im in here");
+    // console.log("check if im in here");
   });
 });
 
@@ -45,11 +45,13 @@ app.controller('ProductController', function($scope, API, $stateParams, $state) 
       $scope.product = product;
       console.log($scope.product);
       console.log("check if im in the product zone");
+      $state.go('/');
     });
 });
 
 app.controller('SignupController', function($scope, API, $stateParams, $state) {
   $scope.signupSubmit = function() {
+    console.log("check if the function is working");
     if($scope.password != $scope.confirmPassword){
       $scope.formError = true;
       $scope.errorMessage = "Password doesn't match";
@@ -74,31 +76,23 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
 });
 
 app.controller('LoginController', function($scope, API, $state) {
+  console.log('In the login');
   $scope.loginSubmit = function() {
+    console.log("click loginSubmit()");
     var login_data = {
       username : $scope.username,
       password : $scope.password
     };
-    API.login(login_data).success(function(user_data) {
-      $state.go('home');
-      console.log("Finally success!!", user_data);
-    }).error(function() {
-      console.log("couldn't login...");
+    console.log(login_data);
+    API.login(login_data)
+      .success(function(login_data) {
+        console.log('success side');
+        console.log("Finally success!!", user_info);
+      }).error(function() {
+        console.log("couldn't login...");
     });
   };
 
-
-  // $scope.loginSubmit = function() {
-  //   console.log("im here!!!");
-  //   API.login($scope.username, $scope.password)
-  //     .success(function(login_data) {
-  //       console.log('login success!!', login_data);
-  //       $state.go('home');
-  //     }).error(function() {
-  //       console.log('failed.', login_data);
-  //       $state.go('home');
-  //   });
-  // };
 });
 
 
@@ -129,14 +123,14 @@ app.factory('API', function($http, $state){
 
 // hennkou kakuninn
 
-  service.login = function(usernsme, password) {
+  service.login = function(login_data, $scope) {
     // var loginData = $cookies.getObject('loginData');
     var url = 'api/user/login';
     return $http({
       url : url,
       method: 'POST',
-      username: username,
-      password: password
+      username: login_data.username,
+      password: login_data.password
     }).success(function(data) {
       service.authToken = data.auth_token;
       $scope.user = data.user;
