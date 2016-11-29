@@ -1,4 +1,4 @@
-var app = angular.module('kashikari', ['ui.router']);
+var app = angular.module('kashikari', ['ui.router','ngCookies']);
 
 
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -39,7 +39,7 @@ app.controller('HomeController', function($scope, API) {
   });
 });
 
-app.controller('ProductController', function($scope, API, $stateParams, $state) {
+app.controller('ProductController', function($scope, API, $stateParams, $state, $cookies, $rootScope) {
   API.getProduct($stateParams.id)
     .success(function(product){
       $scope.product = product;
@@ -75,7 +75,8 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
   };
 });
 
-app.controller('LoginController', function($scope, API, $state) {
+app.controller('LoginController', function($scope, API, $state, $cookies) {
+
   console.log('In the login');
   $scope.loginSubmit = function() {
     console.log("click loginSubmit()");
@@ -85,19 +86,47 @@ app.controller('LoginController', function($scope, API, $state) {
     };
     console.log(login_data);
     API.login(login_data)
-      .success(function(login_data) {
+      .success(function(user_info) {
         console.log('success side');
         console.log("Finally success!!", user_info);
+        $state.go('home');
       }).error(function() {
         console.log("couldn't login...");
+        console.log(login_data);
     });
   };
 
 });
 
 
-app.factory('API', function($http, $state){
+app.factory('API', function($http, $state, $rootScope, $cookies){
   var service = {};
+  // var loginData = $cookies.getObject('loginData');
+
+  // Set cookie data to username or guest GLOBAL VALUES!
+  // もし cookie_data でない場合、データをなしにしておく
+  if(!$cookies.getObject('cookie_data')){
+    $rootScope.displayName = null;
+    $rootScope.loggedIn = false;
+  }
+  // cookie を定義し、それに$rootScope を使って　グローバルバリューにする。他の範囲で使用可能にする。
+  else{
+    var cookie = $cookies.getObject('cookie_data');
+    $rootScope.displayName = cookie.username;
+    $rootScope.auth_token = cookie.auth_token;
+    $rootScope.loggedIn = true;
+  }
+
+// logout をするときにcookie　に保存されているデータを全て削除する
+  $rootScope.logout = function() {
+    $cookies.remove('cookie_data');
+    $rootScope.displayName = null;
+    $rootScope.auth_token = null;
+    $rootScope.loggedIn = false;
+  };
+
+
+
 
   service.getProducts = function() {
     // return $http.get('/api/products');
@@ -121,23 +150,21 @@ app.factory('API', function($http, $state){
     });
   };
 
-// hennkou kakuninn
 
-  service.login = function(login_data, $scope) {
-    // var loginData = $cookies.getObject('loginData');
+  service.login = function(data) {
     var url = 'api/user/login';
     return $http({
       url : url,
       method: 'POST',
-      username: login_data.username,
-      password: login_data.password
+      data: data
     }).success(function(data) {
-      service.authToken = data.auth_token;
-      $scope.user = data.user;
-      // $cookies.putObject('Login success(service)', data);
-      console.log('Login success(service)', data);
+      service.auth_token = data.auth_token;
+      $rootScope.user = data.user;
+      console.log('Login success (service)', data);
     });
   };
+
+
 
   return service;
 });

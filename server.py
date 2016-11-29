@@ -54,6 +54,7 @@ def user_signup():
 @app.route('/api/user/login', methods = ['POST'])
 def user_login():
     user = request.get_json()
+    print user
     username = user['username']
     password = user['password']
     salt = bcrypt.gensalt()
@@ -63,15 +64,17 @@ def user_login():
     if rehash == encrypted_password:
         token = uuid.uuid4()
         user = db.query("select id, first_name from customer where username = $1", username).dictresult()[0]
+        print user
+        print user['id']
         db.insert(
             "auth_token",
             token = token,
-            customer_id = user.id
+            customer_id = user['id']
         )
         login_data = {
         'token': token,
-        'customer_id': user.id,
-        'user_name': user.first_name
+        'customer_id': user['id'],
+        'user_name': user['first_name']
         }
         return jsonify(login_data)
     else:
