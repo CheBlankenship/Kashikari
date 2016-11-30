@@ -84,11 +84,13 @@ app.controller('LoginController', function($scope, API, $state, $cookies) {
       username : $scope.username,
       password : $scope.password
     };
+    $scope.login_data = login_data;
     console.log(login_data);
     API.login(login_data)
       .success(function(user_info) {
         console.log('success side');
         console.log("Finally success!!", user_info);
+        console.log(user_info.user_name);
         $state.go('home');
       }).error(function() {
         console.log("couldn't login...");
@@ -115,6 +117,7 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
     $rootScope.displayName = cookie.username;
     $rootScope.auth_token = cookie.auth_token;
     $rootScope.loggedIn = true;
+    $rootScope.showUserName = true;
   }
 
 // logout をするときにcookie　に保存されているデータを全て削除する
