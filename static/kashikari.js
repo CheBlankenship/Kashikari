@@ -109,7 +109,7 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
   // もし cookie_data でない場合、データをなしにしておく
   if(!$cookies.getObject('cookie_data')){
     $rootScope.displayName = null;
-    $rootScope.loggedIn = false;
+    // $rootScope.loggedIn = false;
   }
   // cookie を定義し、それに$rootScope を使って　グローバルバリューにする。他の範囲で使用可能にする。
   else{
@@ -122,6 +122,7 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
 
 // logout をするときにcookie　に保存されているデータを全て削除する
   $rootScope.logout = function() {
+    console.log('Im going to delete user info');
     $cookies.remove('cookie_data');
     $rootScope.displayName = null;
     $rootScope.auth_token = null;

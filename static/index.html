@@ -5,7 +5,7 @@
     <title>Young Song</title>
     <script src="/angular.js" charset="utf-8"></script>
     <script src="/angular-ui-router.js" charset="utf-8"></script>
-    <script src="/angular-cookies.js"></script>
+    <!-- <script src="/angular-cookies.js"></script> -->
     <script src="angular-cookies.min.js"></script>
     <script src="/kashikari.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -16,12 +16,12 @@
     <!-- menu bar -->
     <div class="row headmenu">
       <nav class="col-xs-12 package">
-          <a ui-sref="home">Home</a>
-          <a ui-sref="signup">Signup</a>
-          <a ui-sref="login" ng-show="loggedIn">Login</a>
+          <a ui-sref="home"><button type="button" name="button">Home</button></a>
+          <a ui-sref="signup"><button type="button" name="button">Signup</button></a>
+          <a ui-sref="login" ng-hide="loggedIn"><button type="button" name="button">Login</button></a>
           <button type="button" ng-click="logout()" name="logout" ng-hide="loggedIn">Logout</button>
 
-        <h3 ng-show = "showUserName">Welcom {{user}}</h3>
+        <h3 ng-show = "showUserName">Welcom {{displayName}}</h3>
       </nav>
     </div>
     <!-- templates -->
