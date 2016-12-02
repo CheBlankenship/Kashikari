@@ -1,14 +1,22 @@
 from flask import Flask, jsonify, request, redirect
 
-# from signal import signal, SIGPIPE, SIG_DFL
-# signal(SIGPIPE,SIG_DFL)
-
-import pg, bcrypt, uuid, os
-
-
+import pg
+import bcrypt
+import uuid
+import os
 
 db = pg.DB(dbname ='e-commerce')
-app = Flask('eCommerce', static_url_path='')
+
+
+
+tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+app = Flask('kashikari', static_url_path='', template_folder=tmp_dir, static_folder=static_folder)
+
+
+# app = Flask('eCommerce', static_url_path='')
+
+
 
 
 
@@ -63,7 +71,7 @@ def user_login():
 
     if rehash == encrypted_password:
         token = uuid.uuid4()
-        user = db.query("select id, first_name from customer where username = $1", username).dictresult()[0]
+        user = db.query("select id, first_name from customer where username = $1", username).dictresult()
         print user
         print user['id']
         db.insert(

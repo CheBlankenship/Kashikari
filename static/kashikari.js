@@ -104,6 +104,7 @@ app.controller('LoginController', function($scope, API, $state, $cookies) {
 app.factory('API', function($http, $state, $rootScope, $cookies){
   var service = {};
   // var loginData = $cookies.getObject('loginData');
+  $rootScope.showUserName = false;
 
   // Set cookie data to username or guest GLOBAL VALUES!
   // もし cookie_data でない場合、データをなしにしておく

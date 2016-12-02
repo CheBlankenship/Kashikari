@@ -13,6 +13,11 @@
 
   </head>
   <body ng-app="kashikari">
+    <div class="row">
+      <div class="col-xs-12">
+        Young Song
+      </div>
+    </div>
     <!-- menu bar -->
     <div class="row headmenu">
       <nav class="col-xs-12 package">
@@ -21,7 +26,7 @@
           <a ui-sref="login" ng-hide="loggedIn"><button type="button" name="button">Login</button></a>
           <button type="button" ng-click="logout()" name="logout" ng-hide="loggedIn">Logout</button>
 
-        <h3 ng-show = "showUserName">Welcom {{displayName}}</h3>
+        <h3 ng-show="showUserName">Welcom {{displayName}}</h3>
       </nav>
     </div>
     <!-- templates -->
