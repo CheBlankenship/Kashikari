@@ -27,6 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/login.html',
       controller: 'LoginController'
     });
+
   $urlRouterProvider.otherwise('/');
 });
 
@@ -76,21 +77,19 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
 });
 
 app.controller('LoginController', function($scope, API, $state, $cookies) {
-
-  console.log('In the login');
+  console.log('In the login controller step 1');
   $scope.loginSubmit = function() {
-    console.log("click loginSubmit()");
+    console.log("clicked loginSubmit()");
     var login_data = {
       username : $scope.username,
       password : $scope.password
     };
     $scope.login_data = login_data;
-    console.log(login_data);
+    console.log('Show the login_data', login_data);
     API.login(login_data)
       .success(function(user_info) {
         console.log('success side');
-        console.log("Finally success!!", user_info);
-        console.log(user_info.user_name);
+        console.log("Finally success!!");
         $state.go('home');
       }).error(function() {
         console.log("couldn't login...");
@@ -110,6 +109,7 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
   // もし cookie_data でない場合、データをなしにしておく
   if(!$cookies.getObject('cookie_data')){
     $rootScope.displayName = null;
+    console.log('check if its going in cookie if 1');
     // $rootScope.loggedIn = false;
   }
   // cookie を定義し、それに$rootScope を使って　グローバルバリューにする。他の範囲で使用可能にする。
@@ -119,6 +119,7 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
     $rootScope.auth_token = cookie.auth_token;
     $rootScope.loggedIn = true;
     $rootScope.showUserName = true;
+    console.log("check if its here 2");
   }
 
 // logout をするときにcookie　に保存されているデータを全て削除する
@@ -128,6 +129,7 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
     $rootScope.displayName = null;
     $rootScope.auth_token = null;
     $rootScope.loggedIn = false;
+    console.log("check if its here 3");
   };
 
 
@@ -157,6 +159,7 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
 
 
   service.login = function(data) {
+    console.log('This is service ');
     var url = 'api/user/login';
     return $http({
       url : url,
@@ -165,11 +168,9 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
     }).success(function(data) {
       service.auth_token = data.auth_token;
       $rootScope.user = data.user;
-      console.log('Login success (service)', data);
+      console.log('Login success');
+      console.log('Show data: ', data);
     });
   };
-
-
-
   return service;
 });

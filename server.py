@@ -9,12 +9,12 @@ db = pg.DB(dbname ='e-commerce')
 
 
 
-tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
-static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
-app = Flask('kashikari', static_url_path='', template_folder=tmp_dir, static_folder=static_folder)
+# tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+# static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+# app = Flask('kashikari', static_url_path='', template_folder=tmp_dir, static_folder=static_folder)
 
 
-# app = Flask('eCommerce', static_url_path='')
+app = Flask('eCommerce', static_url_path='')
 
 
 
@@ -71,7 +71,7 @@ def user_login():
 
     if rehash == encrypted_password:
         token = uuid.uuid4()
-        user = db.query("select id, first_name from customer where username = $1", username).dictresult()
+        user = db.query("select id, first_name from customer where username = $1", username).dictresult()[0]
         print user
         print user['id']
         db.insert(

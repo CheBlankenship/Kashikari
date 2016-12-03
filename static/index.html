@@ -15,7 +15,7 @@
   <body ng-app="kashikari">
     <div class="row">
       <div class="col-xs-12">
-        Young Song
+        <h1>Young Song</h1>
       </div>
     </div>
     <!-- menu bar -->
@@ -24,7 +24,7 @@
           <a ui-sref="home"><button type="button" name="button">Home</button></a>
           <a ui-sref="signup"><button type="button" name="button">Signup</button></a>
           <a ui-sref="login" ng-hide="loggedIn"><button type="button" name="button">Login</button></a>
-          <button type="button" ng-click="logout()" name="logout" ng-hide="loggedIn">Logout</button>
+          <a href=""><button type="button" ng-click="logout()" name="logout" ng-hide="loggedIn">Logout</button></a>
 
         <h3 ng-show="showUserName">Welcom {{displayName}}</h3>
       </nav>
