@@ -59,14 +59,14 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
     }
     else{
       $scope.formError = false;
-      var formData = {
+      var signup_data = {
         username: $scope.username,
         email: $scope.email,
         password: $scope.password,
         first_name: $scope.firstName,
         last_name: $scope.lastName
       };
-      API.signup(formData)
+      API.signup(signup_data)
       .success(function() {
         $state.go('home');
       }).error(function() {
@@ -76,23 +76,20 @@ app.controller('SignupController', function($scope, API, $stateParams, $state) {
   };
 });
 
-app.controller('LoginController', function($scope, API, $state, $cookies) {
-  console.log('In the login controller step 1');
+app.controller('LoginController', function(API, $cookies,$rootScope, $scope, $state) {
   $scope.loginSubmit = function() {
-    console.log("clicked loginSubmit()");
     var login_data = {
       username : $scope.username,
       password : $scope.password
     };
-    $scope.login_data = login_data;
-    console.log('Show the login_data', login_data);
-    API.login(login_data)
-      .success(function(user_info) {
-        console.log('success side');
-        console.log("Finally success!!");
+    API.login(login_data).success(function(user_info) {
+        $cookies.putObject('cookie_data', user_info);
+        console.log('Got into success statment');
+        // $rootScope.displayName = user_info.username;
+        // $rootScope.auth_token = user_info.auth_token;
         $state.go('home');
       }).error(function() {
-        console.log("couldn't login...");
+        console.log('failed');
         console.log(login_data);
     });
   };
@@ -102,24 +99,18 @@ app.controller('LoginController', function($scope, API, $state, $cookies) {
 
 app.factory('API', function($http, $state, $rootScope, $cookies){
   var service = {};
-  // var loginData = $cookies.getObject('loginData');
-  $rootScope.showUserName = false;
 
-  // Set cookie data to username or guest GLOBAL VALUES!
-  // もし cookie_data でない場合、データをなしにしておく
+  // $rootScope.cookie_data;
+
+
   if(!$cookies.getObject('cookie_data')){
     $rootScope.displayName = null;
-    console.log('check if its going in cookie if 1');
-    // $rootScope.loggedIn = false;
+    $rootScope.loggedIn = false;
   }
-  // cookie を定義し、それに$rootScope を使って　グローバルバリューにする。他の範囲で使用可能にする。
   else{
     var cookie = $cookies.getObject('cookie_data');
     $rootScope.displayName = cookie.username;
     $rootScope.auth_token = cookie.auth_token;
-    $rootScope.loggedIn = true;
-    $rootScope.showUserName = true;
-    console.log("check if its here 2");
   }
 
 // logout をするときにcookie　に保存されているデータを全て削除する
@@ -130,6 +121,7 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
     $rootScope.auth_token = null;
     $rootScope.loggedIn = false;
     console.log("check if its here 3");
+    $state.go('home');
   };
 
 
@@ -148,29 +140,24 @@ app.factory('API', function($http, $state, $rootScope, $cookies){
     return $http.get('/api/product/' + id);
   };
 
-  service.signup = function(formData) {
+  service.signup = function(signup_data) {
     var url = '/api/user/signup';
     return $http({
       method: 'POST',
       url: url,
-      data: formData
+      data: signup_data
     });
   };
 
 
-  service.login = function(data) {
-    console.log('This is service ');
+  service.login = function(login_data) {
     var url = 'api/user/login';
     return $http({
       url : url,
       method: 'POST',
-      data: data
-    }).success(function(data) {
-      service.auth_token = data.auth_token;
-      $rootScope.user = data.user;
-      console.log('Login success');
-      console.log('Show data: ', data);
+      data: login_data
     });
   };
+
   return service;
 });
