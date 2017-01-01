@@ -17,12 +17,12 @@ db = pg.DB(
     passwd=os.environ.get('PG_PASSWORD')
 )
 
-# tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 # static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
-# app = Flask('kashikari', static_url_path='', template_folder=tmp_dir, static_folder=static_folder)
+tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+app = Flask('kashikari', static_url_path='', template_folder=tmp_dir, static_folder=static_folder)
 
 
-app = Flask('eCommerce', static_url_path='')
+# app = Flask('eCommerce', static_url_path='')
 
 
 
