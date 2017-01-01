@@ -17,7 +17,7 @@ db = pg.DB(
     passwd=os.environ.get('PG_PASSWORD')
 )
 
-# static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 tmp_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask('kashikari', static_url_path='', template_folder=tmp_dir, static_folder=static_folder)
 
